@@ -1,39 +1,48 @@
-﻿int[] Mas(int size, int min, int max)
+﻿double[] Mas(int size, int min, int max)
 {
-    int[] arr = new int[size];
+    double[] arr = new double[size];
     for (int i = 0; i < size; i++)
     {
-        arr[i] = new Random().Next(min, max);
+        arr[i] = Math.Round((new Random().Next(min, max) + new Random().NextDouble()), 2);
     }
     return arr;
 }
 
-int Sum(int[] arr)
+double Min(double[] arr)
 {
-    int sum = 0;
-    for (int i = 1; i < arr.Length; i += 2)
+    double min = arr[0];
+    for (int i = 0; i < arr.Length; i++)
     {
-        sum += arr[i];
+        if (arr[i] < min)
+        {
+            min = arr[i];
+        }
     }
-    return sum;
+    return min;
+}
+
+double Max(double[] arr)
+{
+    double max = arr[0];
+    for (int i = 0; i < arr.Length; i++)
+    {
+        if (arr[i] > max)
+        {
+            max = arr[i];
+        }
+    }
+    return max;
 }
 
 Console.Write("Enter the number of array elements: ");
 int num = int.Parse(Console.ReadLine());
-if (num <= 0) goto Close2;
-Console.Write("Enter the min value for array elements: ");
-int Amin = int.Parse(Console.ReadLine());
-Console.Write("Enter the max value for array elements: ");
-int Amax = int.Parse(Console.ReadLine());
-if (Amin > Amax) goto Close1;
+if (num <= 0) goto Close;
 
-int[] mas = Mas(num, Amin, Amax);
-Console.WriteLine($"The array: [{String.Join(" ", mas)}]");
-Console.WriteLine($"The sum of elements on odd positions is: {Sum(mas)}");
+double[] mas = Mas(num, 0, 100);
+Console.WriteLine($"The array: [{String.Join("|", mas)}]");
+Console.WriteLine($"The min is: {Min(mas)}");
+Console.WriteLine($"The max is: {Max(mas)}");
+Console.WriteLine($"The diff is: {Max(mas) - Min(mas)}");
 
-Close1:
-if (Amin > Amax) Console.WriteLine("Unable to create an array!");
-
-Close2:
-if (num <= 0) Console.WriteLine("Unable to create an array!");
-
+Close:
+if (num <= 0) Console.WriteLine("Unable to create an array. The number must be greater than 0!");
