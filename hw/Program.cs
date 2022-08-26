@@ -1,46 +1,21 @@
-﻿int[] Mas(int size, int min, int max)
-{
-    int[] arr = new int[size];
-    for (int i = 0; i < size; i++)
+﻿int CountNum(int n)
+{   
+    int count = 0;
+    int temp = 0;
+    Console.WriteLine("Enter numbers: ");
+    for (int i = 0; i < n; i++)
     {
-        arr[i] = new Random().Next(min, max);
-    }
-    return arr;
-}
-
-int[] NewMas(int[] arr)
-{
-    for (int i = 1; i < arr.Length; i++)
-    {
-        for (int j = 0; j < arr.Length - i; j++)
+        temp = int.Parse(Console.ReadLine());
+        if (temp > 0)
         {
-            if(arr[j] < arr[j + 1]) 
-            {
-                (arr[j], arr[j + 1]) = (arr[j + 1], arr[j]);
-            }
+            Console.CursorTop--;
+            Console.WriteLine($"{temp} - greater than 0!");
+            count += 1;
         }
     }
-    return arr;
+    return count;
 }
 
-Console.Write("Enter the number of array elements: ");
+Console.Write("Enter the number of elements: ");
 int num = int.Parse(Console.ReadLine());
-if (num <= 0) goto Close2;
-Console.Write("Enter the min value for array elements: ");
-int Amin = int.Parse(Console.ReadLine());
-Console.Write("Enter the max value for array elements: ");
-int Amax = int.Parse(Console.ReadLine());
-if (Amin > Amax) goto Close1;
-
-int[] mas = Mas(num, Amin, Amax);
-Console.WriteLine($"The array: [{String.Join(" ", mas)}]");
-int[] mas1 = NewMas(mas);
-
-Console.WriteLine($"After sorting: [{String.Join(" ", mas1)}]");
-
-Close1:
-if (Amin > Amax) Console.WriteLine("Unable to create an array!");
-
-Close2:
-if (num <= 0) Console.WriteLine("Unable to create an array! Max must be greater then Min.");
-
+Console.Write($"Number of numbers greater than 0 is: {CountNum(num)}");
