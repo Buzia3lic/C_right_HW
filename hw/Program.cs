@@ -1,21 +1,40 @@
-﻿int CountNum(int n)
-{   
-    int count = 0;
-    int temp = 0;
-    Console.WriteLine("Enter numbers: ");
-    for (int i = 0; i < n; i++)
-    {
-        temp = int.Parse(Console.ReadLine());
-        if (temp > 0)
-        {
-            Console.CursorTop--;
-            Console.WriteLine($"{temp} - greater than 0!");
-            count += 1;
-        }
-    }
-    return count;
+﻿double FindX(double k1, double k2, double b1, double b2)
+{
+    return (b1 - b2) / (k2 - k1);
 }
 
-Console.Write("Enter the number of elements: ");
-int num = int.Parse(Console.ReadLine());
-Console.Write($"Number of numbers greater than 0 is: {CountNum(num)}");
+double FindY(double k1, double k2, double b1, double b2)
+{
+    return k2 * (b1 - b2) / (k2 - k1) + b2;
+}
+
+void Result(double k1, double k2, double b1, double b2)
+{
+    if (k1 == k2 && b1 == b2)
+    {
+        Console.WriteLine("These lines match!");
+    }
+    else
+    {
+        if (k1 == k2)
+        {
+            Console.WriteLine("These lines are parallel!");
+        }
+        else
+        {
+            Console.WriteLine($"Intersection point is: ({Math.Round(FindX(k1, k2, b1, b2), 2)}; {Math.Round(FindY(k1, k2, b1, b2), 2)})");
+        }
+    }
+}
+
+Console.WriteLine("Напишите программу, которая найдёт точку пересечения двух прямых, заданных уравнениями: y = k1 * x + b1, y = k2 * x + b2.");
+Console.Write("Enter k1: ");
+double k1 = double.Parse(Console.ReadLine());
+Console.Write("Enter b1: ");
+double b1 = double.Parse(Console.ReadLine());
+Console.Write("Enter k2: ");
+double k2 = double.Parse(Console.ReadLine());
+Console.Write("Enter b2: ");
+double b2 = double.Parse(Console.ReadLine());
+
+Result(k1, k2, b1, b2);
