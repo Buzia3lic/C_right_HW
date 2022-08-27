@@ -1,40 +1,56 @@
-﻿double FindX(double k1, double k2, double b1, double b2)
-{
-    return (b1 - b2) / (k2 - k1);
-}
+﻿// string[,] table = new string[2, 5];
+//table[0, 0]   table[0, 1] ... table[0, 4]
+//table[1, 0]   table[1, 1] ... table[1, 4]
 
-double FindY(double k1, double k2, double b1, double b2)
-{
-    return k2 * (b1 - b2) / (k2 - k1) + b2;
-}
+// int[,] mas = new int[,]
+// {
+//     {1,  2,  3,  4},
+//     {5,  6,  7,  8},
+//     {9,  10, 11, 12},
+//     {13, 14, 15, 16},
+// };
 
-void Result(double k1, double k2, double b1, double b2)
+int[,] mas = new int[,]
 {
-    if (k1 == k2 && b1 == b2)
+    {1,  2,  3,  4,  5},
+    {6,  7,  8,  9,  10},
+    {11, 12, 13, 14, 15},
+    {16, 17, 18, 19, 20},
+    {21, 22, 23, 24, 25},
+//    {26, 27, 28, 29, 30},
+};
+
+
+void Print(int[,] arr)
+{
+    for (int i = 0; i < arr.GetLength(0); i++)
     {
-        Console.WriteLine("These lines match!");
-    }
-    else
-    {
-        if (k1 == k2)
+        for (int j = 0; j < arr.GetLength(1); j++)
         {
-            Console.WriteLine("These lines are parallel!");
+            if (arr[i, j] < 10) Console.Write($"{arr[i, j]}  ");
+            else Console.Write($"{arr[i, j]} ");
         }
-        else
-        {
-            Console.WriteLine($"Intersection point is: ({Math.Round(FindX(k1, k2, b1, b2), 2)}; {Math.Round(FindY(k1, k2, b1, b2), 2)})");
-        }
+        Console.WriteLine();
     }
 }
 
-Console.WriteLine("Напишите программу, которая найдёт точку пересечения двух прямых, заданных уравнениями: y = k1 * x + b1, y = k2 * x + b2.");
-Console.Write("Enter k1: ");
-double k1 = double.Parse(Console.ReadLine());
-Console.Write("Enter b1: ");
-double b1 = double.Parse(Console.ReadLine());
-Console.Write("Enter k2: ");
-double k2 = double.Parse(Console.ReadLine());
-Console.Write("Enter b2: ");
-double b2 = double.Parse(Console.ReadLine());
+void PrintInLine(int[,] arr, int j)
+{
+    for (int i = j; i < arr.GetLength(1) - 1 - j; i++) Console.Write($"{arr[arr.GetLength(0) - 1 -j, i]}! ");
+    for (int i = arr.GetLength(0) - 1 - j; i > j; i--) Console.Write($"{arr[i, arr.GetLength(1) - 1 - j]}| "); //
+    for (int i = arr.GetLength(1) - 1 - j; i > j; i--) Console.Write($"{arr[0 + j, i]}/ "); // i=3 i>1 i-- a[1,  3...2]
+    for (int i = j; i < arr.GetLength(0) - 1 - j; i++) Console.Write($"{arr[i, 0 + j]}? ");
+}
 
-Result(k1, k2, b1, b2);
+Print(mas);
+Console.WriteLine();
+
+if (mas.GetLength(0) > mas.GetLength(1)) 
+{
+    for (int i = 0; i < mas.GetLength(0)/ 2; i++) PrintInLine(mas, i); 
+}
+else
+{
+    for (int i = 0; i < mas.GetLength(1)/ 2; i++) PrintInLine(mas, i); 
+}
+
