@@ -17,7 +17,7 @@ int[,] mas = new int[,]
     {11, 12, 13, 14, 15},
     {16, 17, 18, 19, 20},
     {21, 22, 23, 24, 25},
-//    {26, 27, 28, 29, 30},
+    {26, 27, 28, 29, 30},
 };
 
 
@@ -34,23 +34,43 @@ void Print(int[,] arr)
     }
 }
 
-void PrintInLine(int[,] arr, int j)
+void PrintInLine(int[,] arr)
 {
-    for (int i = j; i < arr.GetLength(1) - 1 - j; i++) Console.Write($"{arr[arr.GetLength(0) - 1 -j, i]}! ");
-    for (int i = arr.GetLength(0) - 1 - j; i > j; i--) Console.Write($"{arr[i, arr.GetLength(1) - 1 - j]}| "); //
-    for (int i = arr.GetLength(1) - 1 - j; i > j; i--) Console.Write($"{arr[0 + j, i]}/ "); // i=3 i>1 i-- a[1,  3...2]
-    for (int i = j; i < arr.GetLength(0) - 1 - j; i++) Console.Write($"{arr[i, 0 + j]}? ");
+    int count = arr.GetLength(0) * arr.GetLength(1);
+    for (int j = 0; count >= 0; j++)
+    {
+        for (int i = j; i <= arr.GetLength(1) - 1 - j; i++)
+        {
+            Console.Write($"{arr[arr.GetLength(0) - 1 - j, i]} ");
+            count -= 1;
+            if (count == 0) break;
+        }
+        if (count == 0) break;
+        for (int i = arr.GetLength(0) - 2 - j; i > j; i--)
+        {
+            Console.Write($"{arr[i, arr.GetLength(1) - 1 - j]} ");
+            count -= 1;
+            if (count == 0) break;
+        }
+        if (count == 0) break;
+        for (int i = arr.GetLength(1) - 1 - j; i >= j; i--)
+        {
+            Console.Write($"{arr[0 + j, i]} ");
+            count -= 1;
+            if (count == 0) break;
+        }
+        if (count == 0) break;
+        for (int i = j + 1; i < arr.GetLength(0) - 1 - j; i++)
+        {
+            Console.Write($"{arr[i, 0 + j]} ");
+            count -= 1;
+            if (count == 0) break;
+        }        
+    }
+    //Console.Write($"count = '{count}' ");
 }
 
 Print(mas);
 Console.WriteLine();
 
-if (mas.GetLength(0) > mas.GetLength(1)) 
-{
-    for (int i = 0; i < mas.GetLength(0)/ 2; i++) PrintInLine(mas, i); 
-}
-else
-{
-    for (int i = 0; i < mas.GetLength(1)/ 2; i++) PrintInLine(mas, i); 
-}
-
+PrintInLine(mas);
