@@ -23,12 +23,22 @@ void PrintArray(int[,] arr)
     }
 }
 
-void FindElement(int[,] arr, int fm, int fn)
+double[] GetAverageArray(int[,] arr)
 {
-    if (fm >= 0 && fm < arr.GetLength(0) && fn >= 0 && fn < arr.GetLength(1))
-        Console.WriteLine($"The search element of array [{fm}, {fn}] is: |{arr[fm, fn]}|");
-    else
-        Console.WriteLine($"The element [{fm}, {fn}] does not exist in the array! ");
+    double[] result = new double[arr.GetLength(1)];
+    
+    for (int i = 0; i < result.Length; i++)
+    {
+        result[i] = 0;
+        for (int j = 0; j < arr.GetLength(0); j++)
+        {
+            result[i] += arr[j, i];
+        }
+        result[i] = Math.Round(result[i] /= arr.GetLength(0), 1);
+
+    }
+    
+    return result;
 }
 
 Console.Write("Enter number of lines: ");
@@ -38,8 +48,4 @@ int n = int.Parse(Console.ReadLine());
 int[,] newMas = NewArray(m, n, 0, 9); //я не стал делать ввод мин и макс, так как по условию этого нет
 Console.WriteLine("The array: ");
 PrintArray(newMas);
-Console.Write("Enter line number for searching: ");
-int findM = int.Parse(Console.ReadLine());
-Console.Write("Enter column number for searching: ");
-int findN = int.Parse(Console.ReadLine());
-FindElement(newMas, findM, findN);
+Console.WriteLine($"The averages fo each column is : [{String.Join("; ", GetAverageArray(newMas))}]");
