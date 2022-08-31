@@ -42,6 +42,23 @@ int ReplaceTo(string text)
         }
     }
 
+    if (numArray.Length > 2)
+    {
+        for (int i = 1; i < numArray.Length - 1; i++)
+        {
+            if (numArray[i] == numArray[i - 1] && numArray[i + 1] > numArray[i - 1]) return 0;
+            
+            if ((numArray[i] == 1 && numArray[i + 1] > numArray[i - 1]) || (numArray[i] == 1 && numArray[i + 1] == 5 && numArray[i - 1] == 5)) return 0;
+            if ((numArray[i] == 5 && numArray[i + 1] > numArray[i - 1]) || (numArray[i] == 5 && numArray[i + 1] == 1 && numArray[i - 1] == 1)) return 0;
+            if ((numArray[i] == 10 && numArray[i + 1] > numArray[i - 1]) || (numArray[i] == 10 && numArray[i + 1] == 1 && numArray[i - 1] == 1) || (numArray[i] == 10 && numArray[i + 1] == 50 && numArray[i - 1] == 50)) return 0;
+            if ((numArray[i] == 50 && numArray[i + 1] > numArray[i - 1]) || (numArray[i] == 50 && numArray[i + 1] == 10 && numArray[i - 1] == 10)) return 0;
+            if ((numArray[i] == 100 && numArray[i + 1] > numArray[i - 1]) || (numArray[i] == 100 && numArray[i + 1] == 10 && numArray[i - 1] == 10) || (numArray[i] == 100 && numArray[i + 1] == 500 && numArray[i - 1] == 500)) return 0;
+            if ((numArray[i] == 1000 && numArray[i + 1] > numArray[i - 1]) || (numArray[i] == 1000 && numArray[i + 1] == 100 && numArray[i - 1] == 100)) return 0;
+            
+        }
+    }
+
+
     int result = numArray[numArray.Length - 1];
     int count = 1;
 
