@@ -20,28 +20,39 @@ void PrintArr(int[,] arr)
     }
 }
 
-int[,] DecreaseArrey(int[,] arr)
+int MinSum(int[,] arr)
 {
+    int[] sum = new int[arr.GetLength(0)];
     for (int i = 0; i < arr.GetLength(0); i++)
     {
-        for (int i1 = 0; i1 < arr.GetLength(1); i1++) 
+        for (int j = 0; j < arr.GetLength(1); j++)
         {
-            for (int j = arr.GetLength(1) - 1; j > 0; j--)
-            {
-                if (arr[i, j] > arr[i, j - 1]) (arr[i, j], arr[i, j - 1]) = (arr[i, j - 1], arr[i, j]);
-            }
+            sum[i] += arr[i, j];
         }
     }
-    return arr;
+
+    int min = 0;
+    for (int i = 1; i < sum.Length; i++)
+    {
+        if (sum[i] < sum[i - 1]) min = i;
+    }
+    return min;
 }
+
 
 Console.Write("Enter M: ");
 int m = int.Parse(Console.ReadLine());
 Console.Write("Enter N: ");
 int n = int.Parse(Console.ReadLine());
-
-int[,] newArray = GetArrey(m, n);
-PrintArr(newArray);
-Console.WriteLine();
-int[,] decrArray = DecreaseArrey(newArray);
-PrintArr(decrArray);
+if (m == n)
+{
+    Console.WriteLine($"Line and column cannot be equal!");
+}
+else
+{
+    int[,] newArray = GetArrey(m, n);
+    PrintArr(newArray);
+    Console.WriteLine();
+    int minLine = MinSum(newArray);
+    Console.WriteLine($"Min sum in the [{minLine}] line.");
+}
