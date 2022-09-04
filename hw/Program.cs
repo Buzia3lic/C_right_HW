@@ -18,41 +18,47 @@ void PrintArr(int[,] arr)
         for (int j = 0; j < arr.GetLength(1); j++) Console.Write($"{arr[i, j]} ");
         Console.WriteLine();
     }
+    Console.WriteLine();
 }
 
-int MinSum(int[,] arr)
+int[,] ResultMatrix(int[,] arr1, int[,] arr2)
 {
-    int[] sum = new int[arr.GetLength(0)];
-    for (int i = 0; i < arr.GetLength(0); i++)
+    int[,] result = new int[arr1.GetLength(0), arr2.GetLength(1)];
+
+    for (int i = 0; i < result.GetLength(0); i++)
     {
-        for (int j = 0; j < arr.GetLength(1); j++)
+        for (int j = 0; j < result.GetLength(1); j++)
         {
-            sum[i] += arr[i, j];
+            for (int k = 0; k < arr1.GetLength(1); k++)
+            {
+                result[i, j] += arr1[i, k] * arr2[k, j];
+            }
         }
     }
-
-    int min = 0;
-    for (int i = 1; i < sum.Length; i++)
-    {
-        if (sum[i] < sum[i - 1]) min = i;
-    }
-    return min;
+    return result;
 }
 
+Console.Write("Enter M1 for first matrix: ");
+int m1 = int.Parse(Console.ReadLine());
+Console.Write("Enter N1 for first matrix: ");
+int n1 = int.Parse(Console.ReadLine());
 
-Console.Write("Enter M: ");
-int m = int.Parse(Console.ReadLine());
-Console.Write("Enter N: ");
-int n = int.Parse(Console.ReadLine());
-if (m == n)
-{
-    Console.WriteLine($"Line and column cannot be equal!");
-}
+Console.Write("Enter M2 for second matrix: ");
+int m2 = int.Parse(Console.ReadLine());
+Console.Write("Enter N2 for second matrix: ");
+int n2 = int.Parse(Console.ReadLine());
+Console.WriteLine();
+
+if (n1 != m2) Console.WriteLine("It's impossible to multiply these matrices!");
 else
 {
-    int[,] newArray = GetArrey(m, n);
-    PrintArr(newArray);
-    Console.WriteLine();
-    int minLine = MinSum(newArray);
-    Console.WriteLine($"Min sum in the [{minLine}] line.");
+    int[,] theArray1 = GetArrey(m1, n1);
+    int[,] theArray2 = GetArrey(m2, n2);
+    Console.WriteLine("The first matrix:");
+    PrintArr(theArray1);
+    Console.WriteLine("The second matrix:");
+    PrintArr(theArray2);
+    int[,] result = ResultMatrix(theArray1, theArray2);
+    Console.WriteLine("The result matrix:");
+    PrintArr(result);
 }
