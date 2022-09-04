@@ -1,48 +1,66 @@
-int[,,] GetArrey(int x, int y, int z)
+int[,] GetArrey(int m, int n)
 {
-    int[] temp = new int [x * y * z];
-    temp[0] = new Random().Next(10, 92);
-    for (int i = 1; i < temp.Length; i++)
+    int[,] result = new int[m, n];
+    int count = m * n;
+    int timer = 1;
+    for (int i = 0; count >= 0; i++)
     {
-        temp[i] =  temp[i - 1] + 1;   
-    }
-    Console.WriteLine(String.Join(" ", temp));
-    
-    int[,,] result = new int[x, y, z];
-    int timer = 0;
-    int end = temp.Length;
-    for (int k = 0; k < z; k++)
-    {
-        for (int i = 0; i < x; i++)
+        
+       
+        for (int j = i; j < result.GetLength(1) - i; j++)
         {
-            for (int j = 0; j < y; j++)
-            {
-               
-                timer = new Random().Next(0, end);
-                result[i, j, k] = temp[timer];
-                temp[timer] = temp[end - 1];
-                end--;
-            }
+            result[i, j] = timer;
+            timer++;
+            count--;
+            if (count == 0) break;
         }
+        if (count == 0) break;
+        for (int j = i; j < result.GetLength(0) - 2 - i; j++)
+        {
+            result[j + 1, result.GetLength(1) - 1 - i] = timer;
+            timer++;
+            count--;
+            if (count == 0) break;
+        }
+        if (count == 0) break;
+        for (int j = result.GetLength(1) - 1 - i; j >= i; j--)
+        {
+            result[result.GetLength(0) - 1 - i, j] = timer;
+            timer++;
+            count--;
+        }
+        if (count == 0) break;
+        for (int j = result.GetLength(0) - 2 - i; j > i; j--)
+        {
+            result[j, i] = timer;
+            timer++;
+            count--;
+            if (count == 0) break;
+        }
+        if (count == 0) break;
     }
 
-    
 
     return result;
 }
 
-void PrintArr(int[,,] arr)
+void PrintArr(int[,] arr)
 {
-    for (int k = 0; k < arr.GetLength(2); k++)
+    for (int i = 0; i < arr.GetLength(0); i++)
     {
-        for (int i = 0; i < arr.GetLength(0); i++)
+        for (int j = 0; j < arr.GetLength(1); j++)
         {
-            for (int j = 0; j < arr.GetLength(1); j++) Console.Write($"{arr[i, j, k]}({i},{j},{k}) ");
-            Console.WriteLine();
+            if (arr[i, j] < 10) Console.Write($"{arr[i, j]}  ");
+            else Console.Write($"{arr[i, j]} ");
         }
         Console.WriteLine();
     }
 }
 
-int[,,] theArray = GetArrey(2, 2, 2);
+Console.Write("Enter M: ");
+int m = int.Parse(Console.ReadLine());
+Console.Write("Enter N: ");
+int n = int.Parse(Console.ReadLine());
+
+int[,] theArray = GetArrey(m, n);
 PrintArr(theArray);
