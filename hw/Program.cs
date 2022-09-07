@@ -1,21 +1,17 @@
-int Sqrt(int num)
+double AckerFun(double m, double n)
 {
-    double[] arr = new double[2];
-    arr[0] = num / 2;
-    double diff = 0.000001;
-    while((arr[0] - arr[1]) > diff)
-    {
-        arr[0] = (arr[0] + num / arr[0]) / 2;
-        arr[1] = (arr[0] + num / arr[0]) / 2;
-    }
-    int result = (int)arr[1];
-    return result;
-
+    if (m == 0) return n + 1;
+    if (m == 1) return n + 2;
+    if (m == 2) return 2 * n + 3;
+    if (m == 3) return Math.Pow (2, n + 3) - 3;
+    return Math.Pow (2, (AckerFun(m - 1, n)) + 3) - 3;
 }
 
-Console.Write("Enter a number: ");
-int num = int.Parse(Console.ReadLine());
+Console.Write("Enter m: ");
+double m = int.Parse(Console.ReadLine());
+Console.Write("Enter n: ");
+double n = int.Parse(Console.ReadLine());
+if (m < 0 || n < 0) Console.Write("Tne numbers mut be greater then 0!");
+else Console.Write(AckerFun(m, n));
 
-int result = Sqrt(num);
-Console.WriteLine($"The square root of a number {num} is: {result}");
 
